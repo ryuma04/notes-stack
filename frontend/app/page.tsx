@@ -38,34 +38,45 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <h1>Notes Stack</h1>
+    <main className="mx-auto max-w-xl p-8">
+      <h1 className="mb-6 text-2xl font-bold">Notes Stack</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="author">Author</label>{" "}
+      <form onSubmit={handleSubmit} className="mb-8 flex flex-col gap-3">
+        <div className="flex flex-col gap-1">
+          <label htmlFor="author" className="text-sm font-medium">
+            Author
+          </label>
           <input
             id="author"
             maxLength={50}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            className="rounded border border-gray-300 px-3 py-2"
           />
         </div>
-        <div>
-          <label htmlFor="content">Content</label>{" "}
+        <div className="flex flex-col gap-1">
+          <label htmlFor="content" className="text-sm font-medium">
+            Content
+          </label>
           <input
             id="content"
             required
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            className="rounded border border-gray-300 px-3 py-2"
           />
         </div>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="self-start rounded bg-black px-4 py-2 text-white"
+        >
+          Submit
+        </button>
       </form>
 
-      <ul>
+      <ul className="flex flex-col gap-2">
         {notes.map((note) => (
-          <li key={note.id}>
+          <li key={note.id} className="rounded border border-gray-200 p-3">
             <strong>{note.author}</strong>: {note.content}
           </li>
         ))}
