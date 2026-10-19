@@ -1,0 +1,5 @@
+node_modules
+
+# to remove the stale cache
+.next 
+.env*

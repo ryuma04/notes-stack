@@ -1,0 +1,33 @@
+name: CI pipeline
+
+# Define the trigger
+on:
+  push:
+    # Add more branches here if needed
+    branches: [main]
+
+jobs:
+  build:
+    # Choose the operating system for the runner
+    runs-on: ubuntu-latest
+
+    # Define the steps to execute
+    steps:
+      # Copy the repository to the runner machine
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js on the runner machine
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Install project dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the project
+      - name: Build project
+        run: npm run build

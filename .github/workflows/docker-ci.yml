@@ -1,0 +1,36 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+        # copies the code in runner machine
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        #initialize docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+        #builds the frontend image
+      - name: Build frontend image
+        uses: docker/build-push-action@v7
+        with:
+          #specifies the working dir
+          context: ./frontend
+          #push:false specifies that only build the image and dont push it in image registry
+          push: false
+
+        #build the backend image
+      - name: Build backend image
+        uses: docker/build-push-action@v7
+        with:
+          context: ./backend
+          push: false

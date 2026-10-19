@@ -1,0 +1,39 @@
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+
+  backend:
+    # builds the image
+    build: ./backend
+    # loads the env file
+    env_file:
+      - ./backend/.env
+    # specifies the port to listen for that particular component
+    ports:
+      - "8000:8000"
+    #it specifies to start the postgres first, then backend component will get start
+    depends_on:
+      - postgres
+
+  #prebuilt image
+  postgres:
+    image: postgres:16-alpine
+    # environment:
+    #   POSTGRES_DB: ${POSTGRES_DB}
+    #   POSTGRES_USER: ${POSTGRES_USER}
+    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - ./backend/.env
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+volumes:
+  postgres_data:
+
+
+
